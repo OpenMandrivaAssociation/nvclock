@@ -35,17 +35,6 @@ mkdir -p %{buildroot}%_bindir
 
 %makeinstall
 
-mkdir -p %{buildroot}%{_menudir}
-cat << EOF > %{buildroot}/%{_menudir}/%name
-?package(%name):\
-	needs="x11"\
-	section="System/Configuration/Hardware"\
-	title="Nvclock"\
-	longtitle="Overclocking tool for NVIDIA graphic boards"\
-	icon="hardware_section.png"\
-	command="nvclock" \
-	xdg="true"
-EOF
 rm -rf %buildroot/%_datadir/doc/nvclock
 
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -73,6 +62,5 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc AUTHORS ChangeLog README
 %{_bindir}/*
-%{_menudir}/%name
 %{_mandir}/man1/*
 %_datadir/applications/*
