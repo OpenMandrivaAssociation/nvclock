@@ -3,7 +3,7 @@
 Summary:	Overclocking tool for NVIDIA graphic boards
 Name:		nvclock
 Version:	0.8
-Release:	%mkrel 0.%{beta}.2
+Release:	%mkrel 0.%{beta}.3
 License:	GPL
 Group:		System/Configuration/Hardware
 URL:		http://www.linuxhardware.org/nvclock/
