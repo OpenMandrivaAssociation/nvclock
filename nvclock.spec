@@ -1,13 +1,15 @@
 %define beta b2
 
+Summary:	Overclocking tool for NVIDIA graphic boards
 Name:		nvclock
 Version:	0.8
 Release:	%mkrel 0.%{beta}.2
-Summary:	Overclocking tool for NVIDIA graphic boards
-URL:		http://www.linuxhardware.org/nvclock/
-Source:		http://www.linuxhardware.org/nvclock/%{name}%{version}%{beta}.tar.bz2
 License:	GPL
 Group:		System/Configuration/Hardware
+URL:		http://www.linuxhardware.org/nvclock/
+Source:		http://www.linuxhardware.org/nvclock/%{name}%{version}%{beta}.tar.bz2
+Patch0:		%{name}0.8b2-makefile.patch
+Patch1:		%{name}0.8b2-lib64.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -33,12 +35,18 @@ A Qt3 frontend for nvclock.
 
 %prep
 %setup -q -n %{name}%{version}%{beta}
+%patch0 -p1
+%patch1 -p1
 
 %build
+autoreconf -fi
+
 %configure2_5x \
 	--enable-gtk \
 	--enable-qt \
-	--enable-nvcontrol
+	--enable-nvcontrol \
+	--with-qtdir=%{_prefix}/lib/qt3 \
+	--with-qt-libs=%{_prefix}/lib/qt3/%{_lib}
 
 # parallel build doesn't work
 %(echo %make|perl -pe 's/-j\d+/-j1/g')
@@ -46,11 +54,7 @@ A Qt3 frontend for nvclock.
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}%{_bindir}
-
-%makeinstall
-
-rm -rf %{buildroot}%{_datadir}/doc/nvclock
+%makeinstall_std mandir=%{_mandir}
 
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}-gtk.desktop << EOF
