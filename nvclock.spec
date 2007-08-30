@@ -31,22 +31,22 @@ make
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}%_bindir
+mkdir -p %{buildroot}%{_bindir}
 
-%makeinstall
+%makeinstall_std
 
-rm -rf %buildroot/%_datadir/doc/nvclock
+rm -rf %{buildroot}%{_datadir}/doc/nvclock
 
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=nvclock
 Comment=Overclocking tool for NVIDIA graphic boards
-Exec=%{name}
+Exec=%{name}_gtk
 Icon=hardware_section
 Terminal=false
 Type=Application
-Categories=X-MandrivaLinux-System-Configuration-Hardware;Settings;HardwareSettings;
+Categories=GTK;Settings;HardwareSettings;
 EOF
 
 %post
@@ -63,4 +63,4 @@ rm -rf %{buildroot}
 %doc AUTHORS ChangeLog README
 %{_bindir}/*
 %{_mandir}/man1/*
-%_datadir/applications/*
+%{_datadir}/applications/*
