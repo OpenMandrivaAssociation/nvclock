@@ -3,7 +3,7 @@
 Summary:	Overclocking tool for NVIDIA graphic boards
 Name:		nvclock
 Version:	0.8
-Release:	%mkrel 0.%{beta}.3
+Release:	%mkrel 0.%{beta}.4
 License:	GPL
 Group:		System/Configuration/Hardware
 URL:		http://www.linuxhardware.org/nvclock/
@@ -59,7 +59,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{name}-gtk.desktop << EOF
 [Desktop Entry]
-Name=nvclock
+Name=nvclock-gtk
 Comment=Overclocking tool for NVIDIA graphic boards
 Exec=%{name}_gtk
 Icon=hardware_section
@@ -70,14 +70,14 @@ EOF
 
 cat > %{buildroot}%{_datadir}/applications/%{name}-qt.desktop << EOF
 [Desktop Entry]
-Name=nvclock
+Name=nvclock-qt3
 Comment=Overclocking tool for NVIDIA graphic boards
 Exec=%{name}_qt
 Icon=hardware_section
 Terminal=false
 Type=Application
 OnlyShowIn=KDE;
-Categories=Qt;Settings;HardwareSettings;
+Categories=QT;Settings;HardwareSettings;
 EOF
 
 %post
