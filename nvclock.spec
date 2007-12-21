@@ -10,6 +10,7 @@ URL:		http://www.linuxhardware.org/nvclock/
 Source:		http://www.linuxhardware.org/nvclock/%{name}%{version}%{beta}.tar.bz2
 Patch0:		%{name}0.8b2-makefile.patch
 Patch1:		%{name}0.8b2-lib64.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 This program allows you to overclock your nvidia card under linux.
