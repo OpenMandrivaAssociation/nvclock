@@ -4,7 +4,7 @@ Summary:	Overclocking tool for NVIDIA graphic boards
 Name:		nvclock
 Version:	0.8
 Release:	%mkrel 0.%{beta}.1
-License:	GPL
+License:	GPLv2+
 Group:		System/Configuration/Hardware
 URL:		http://www.linuxhardware.org/nvclock/
 Source:		http://www.linuxhardware.org/nvclock/%{name}%{version}%{beta}.tar.bz2
@@ -39,14 +39,15 @@ A Qt3 frontend for nvclock.
 %patch1 -p1
 
 %build
-autoreconf -fi
+./autogen.sh
+export PATH=%{qt3dir}/bin:$PATH
 
 %configure2_5x \
 	--enable-gtk \
 	--enable-qt \
 	--enable-nvcontrol \
-	--with-qtdir=%{_prefix}/lib/qt3 \
-	--with-qt-libs=%{_prefix}/lib/qt3/%{_lib}
+	--with-qtdir=%{qt3dir} \
+	--with-qt-libs=%{qt3lib}
 
 # parallel build doesn't work
 %(echo %make|perl -pe 's/-j\d+/-j1/g')
