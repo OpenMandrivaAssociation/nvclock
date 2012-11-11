@@ -1,0 +1,81 @@
+diff -Naur nvclock0.8b4/Makefile.in nvclock0.8b4.tpg/Makefile.in
+--- nvclock0.8b4/Makefile.in	2008-05-11 10:25:44.000000000 +0000
++++ nvclock0.8b4.tpg/Makefile.in	2009-01-27 19:11:42.000000000 +0000
+@@ -1,8 +1,8 @@
+ INSTALL=@INSTALL@
+ 
+-prefix=$(DESTDIR)@prefix@
++prefix=@prefix@
+ docdir=${prefix}/share/doc/nvclock
+-mandir=${prefix}/man
++mandir=${prefix}/share/man
+ DOCS= ABOUT AUTHORS ChangeLog FAQ README
+ 
+ all:
+@@ -21,7 +21,7 @@
+ install-docs:
+ 	@documentations='$(DOCS)'; \
+ 	for doc in $$documentations; do \
+-	destdir=$(docdir); \
++	destdir=$(DESTDIR)$(docdir); \
+ 	name=`echo $$doc` \
+ 	dir=$$destdir; \
+ 	mkdir -p $$dir; \
+@@ -30,14 +30,14 @@
+ 	done
+ 
+ install-desktop-shortcut:
+-	mkdir -p $(prefix)/share/applications
+-	mkdir -p $(prefix)/share/icons/hicolor/48x48/apps
+-	cp nvclock.desktop $(prefix)/share/applications
+-	cp nvclock.png $(prefix)/share/icons/hicolor/48x48/apps
++	mkdir -p $(DESTDIR)$(prefix)/share/applications
++	mkdir -p $(DESTDIR)$(prefix)/share/icons/hicolor/48x48/apps
++	cp nvclock.desktop $(DESTDIR)$(prefix)/share/applications
++	cp nvclock.png $(DESTDIR)$(prefix)/share/icons/hicolor/48x48/apps
+ 
+ install-man:
+-	mkdir -p $(mandir)/man1
+-	cp nvclock.1 $(mandir)/man1
++	mkdir -p $(DESTDIR)$(mandir)/man1
++	cp nvclock.1 $(DESTDIR)$(mandir)/man1
+ 
+ uninstall: uninstall-docs uninstall-man uninstall-desktop-shortcut
+ 	$(MAKE) -C src uninstall
+diff -Naur nvclock0.8b4/src/Makefile.in nvclock0.8b4.tpg/src/Makefile.in
+--- nvclock0.8b4/src/Makefile.in	2009-01-03 17:02:54.000000000 +0000
++++ nvclock0.8b4.tpg/src/Makefile.in	2009-01-27 19:03:56.000000000 +0000
+@@ -8,9 +8,9 @@
+ libbackend=./backend/libbackend.a
+ libnvcontrol=./nvcontrol/libnvcontrol.a
+ 
+-prefix=$(DESTDIR)@prefix@
+-exec_prefix=$(DESTDIR)@exec_prefix@
+-bindir=$(DESTDIR)@bindir@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++bindir=@bindir@
+ 
+ ifeq ($(HAVE_NVCONTROL), yes)
+     DEPS=$(libbackend) $(libnvcontrol)
+diff -Naur nvclock0.8b4/src/gtk/Makefile.in nvclock0.8b4.tpg/src/gtk/Makefile.in
+--- nvclock0.8b4/src/gtk/Makefile.in	2008-05-11 10:25:46.000000000 +0000
++++ nvclock0.8b4.tpg/src/gtk/Makefile.in	2009-01-27 19:06:06.000000000 +0000
+@@ -7,13 +7,13 @@
+ libbackend=../backend/libbackend.a
+ libnvcontrol=../nvcontrol/libnvcontrol.a
+ 
+-prefix=$(DESTDIR)@prefix@
+-exec_prefix=$(DESTDIR)@exec_prefix@
+-bindir=$(DESTDIR)@bindir@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++bindir=@bindir@
+ 
+ ifeq ($(HAVE_GTK2), yes)
+     PROGRAM=nvclock_gtk
+-    INSTALL_APP=mkdir -p $(bindir); $(INSTALL) -c $(PROGRAM) $(bindir)/$(PROGRAM)
++    INSTALL_APP=mkdir -p $(DESTDIR)$(bindir); $(INSTALL) -c $(PROGRAM) $(DESTDIR)$(bindir)/$(PROGRAM)
+     UNINSTALL_APP=rm -f $(bindir)/$(PROGRAM)
+ endif
+ 
