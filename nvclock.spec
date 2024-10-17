@@ -6,7 +6,7 @@ Version:	0.8
 Release:	%mkrel 0.%{beta}.4
 License:	GPLv2+
 Group:		System/Configuration/Hardware
-URL:		http://www.linuxhardware.org/nvclock/
+URL:		https://www.linuxhardware.org/nvclock/
 Source:		http://www.linuxhardware.org/nvclock/%{name}%{version}%{beta}.tar.bz2
 Patch0:		%{name}0.8b4-makefile.patch
 BuildRequires:	gtk+2-devel
